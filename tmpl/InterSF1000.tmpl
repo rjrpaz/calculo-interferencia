@@ -1,0 +1,1744 @@
+  <DIV ALIGN=LEFT>
+   <B>
+    <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="3">
+     RESUMEN:
+     <BR>
+     C&aacute;lculo Interferente para estaci&oacute;n interferente <TMPL_VAR NAME="nombre">
+     <BR>
+     en un Area de +/- 1 grado lat., +/- 1 grado lon.
+    </font>
+   </B>
+  </DIV>
+
+  <TABLE CELLSPACING=0 BORDER=1>
+   <TR>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Banda de Frecuencia
+      </font>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Nro. Asignaci&oacute;n CNC
+      </font>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Se&ntilde;al Interferente
+      </FONT>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Margen de Interferencia
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TMPL_LOOP NAME="solo_ciertos_datos_interferente">
+   <TR>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="banda">
+     </font>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="nro_asignacion_cnc">
+     </font>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="senial_interferente">
+     </FONT>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="margen_de_interferencia">
+     </FONT>
+    </TD>
+   </TR>
+   </TMPL_LOOP>
+  </TABLE>
+
+  <DIV ALIGN=LEFT>
+   <B>
+    <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="3">
+     C&aacute;lculo Interferente para estaci&oacute;n interferida <TMPL_VAR NAME="nombre">
+     <BR>
+     en un Area de +/- 1 grado lat., +/- 1 grado lon.
+    </font>
+   </B>
+  </DIV>
+
+  <TABLE CELLSPACING=0 BORDER=1>
+   <DIV ALIGN=LEFT>
+   <TR>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Banda de Frecuencia
+      </font>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Nro. Asignaci&oacute;n CNC
+      </font>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Se&ntilde;al Interferente
+      </FONT>
+     </B>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       Margen de Interferencia
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TMPL_LOOP NAME="solo_ciertos_datos_interferido">
+   <TR>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="banda">
+     </font>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="nro_asignacion_cnc">
+     </font>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="senial_interferente">
+     </FONT>
+    </TD>
+    <TD ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <TMPL_VAR NAME="margen_de_interferencia">
+     </FONT>
+    </TD>
+   </TR>
+   </TMPL_LOOP>
+  </TABLE>
+
+  <HR>
+
+  <DIV ALIGN=LEFT>
+   <B>
+    <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="3">
+     DETALLE:
+    </font>
+   </B>
+  </DIV>
+
+  <TMPL_LOOP NAME="registro">
+  <HR>
+
+  <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+   <b>
+    Banda de Frecuencia: <TMPL_VAR NAME="banda">
+    <br>
+    Nro. Asignaci&oacute;n CNC: <TMPL_VAR NAME="nro_asignacion_cnc">
+   </b>
+  </font>
+  
+  <P>
+
+  <TABLE CELLSPACING=0 BORDER=1>
+
+   <TR>
+    <TD COLSPAN=5 ROWSPAN=2 WIDTH=448 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      ANEXO II:           
+      <B>
+       PLANILLA DE C&Aacute;LCULO DE RADIOENLACE
+       <BR>
+       INTERFERENTE PARA SISTEMAS DEL SERVICIO FIJO
+       <BR>
+       QUE OPERAN EN FRECUENCIA SUPERIORES A 1000 MHz
+      </B>
+     </FONT>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=CENTER VALIGN=BOTTOM>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <B>
+       C&Oacute;DIGOS NUM&Eacute;RICOS
+      </B>
+      <BR>
+      (para uso exclusivo de la CNC)
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=5 WIDTH=114 HEIGHT=209 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       TOTALES
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=CENTER VALIGN=BOTTOM>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      <B>
+       C&Oacute;DIGOS NUM&Eacute;RICOS
+      </B>
+      <BR>
+      (para uso exclusivo de la CNC)
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 ROWSPAN=5 WIDTH=114 HEIGHT=209 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       TOTALES
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD ROWSPAN=3 WIDTH=30 HEIGHT=125 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       &Iacute;
+       <BR>
+       T
+       <BR>
+       E
+       <BR>
+       M
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 ROWSPAN=3 WIDTH=332 HEIGHT=42 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Representante T&eacute;cnico
+      <BR>
+      Lugar y Fecha
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      Firma y Sello ( Proyectista )
+     </FONT>
+    </TD>
+    <TD ROWSPAN=3 WIDTH=43 HEIGHT=125 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       S
+       <BR>
+       &Iacute;
+       <BR>
+       M
+       <BR>
+       B
+       <BR>
+       O
+       <BR>
+       L
+       <BR>
+       O
+      </FONT>
+     </B>
+    </TD>
+    <TD ROWSPAN=3 WIDTH=43 HEIGHT=125 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       U
+       <BR>
+       N
+       <BR>
+       I
+       <BR>
+       D
+       <BR>
+       A
+       <BR>
+       D
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       NOMBRE DE LAS ESTACIONES
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       NOMBRE DE LAS ESTACIONES
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=21 ALIGN=CENTER VALIGN=BOTTOM>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       ESTACI&Oacute;N TX
+       <BR>
+       (Interferente)
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=21 ALIGN=CENTER VALIGN=BOTTOM>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       ESTACI&Oacute;N RX
+       <BR>
+       (Interferida)
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=21 ALIGN=CENTER VALIGN=BOTTOM>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       ESTACI&Oacute;N TX
+       <BR>
+       (Interferente)
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=21 ALIGN=CENTER VALIGN=BOTTOM>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       ESTACI&Oacute;N RX
+       <BR>
+       (Interferida)
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=42 ALIGN=CENTER VALIGN=MIDDLE SDVAL="1">
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      1
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=42 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Capacidad / Tipo de modulaci&oacute;n
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=42 ALIGN=CENTER VALIGN=MIDDLE>
+     <FONT FACE="Courier">
+      n
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=42 ALIGN=CENTER VALIGN=MIDDLE>
+     <FONT FACE="Times New Roman" SIZE=1>
+      Can.Tel.
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=42 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="capacidad_interferente">
+       &nbsp;
+       /
+       &nbsp;
+       <TMPL_VAR NAME="tipo_modulacion_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=42 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="capacidad_interferido">
+       &nbsp;
+       /
+       &nbsp;
+       <TMPL_VAR NAME="tipo_modulacion_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=42 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=42 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="capacidad_interferido">
+       &nbsp;
+       /
+       &nbsp;
+       <TMPL_VAR NAME="tipo_modulacion_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=42 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="capacidad_interferente">
+       &nbsp;
+       /
+       &nbsp;
+       <TMPL_VAR NAME="tipo_modulacion_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=42 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD ROWSPAN=2 WIDTH=30 HEIGHT=56 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      2
+     </FONT>
+    </TD>
+    <TD ROWSPAN=2 WIDTH=159 HEIGHT=56 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Coordenadas geogr&aacute;ficas
+     </FONT>
+    </TD>
+    <TD WIDTH=173 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Latitutd sur (S)
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Lat
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      &ordm;  '  &quot;
+     </FONT>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferido_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="latitud_interferente_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=173 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Longitud oeste (W)
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Lon
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      &ordm;  '  &quot;
+     </FONT>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferido_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_grado">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_minuto">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="longitud_interferente_segundo">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      3 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Acimut enlace interferente
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Aci
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      &ordm;
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="acimut_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="acimut_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="acimut_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="acimut_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      4 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Acimut enlace &uacute;til
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Acu
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      &ordm;
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="acimut_enlace_util_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="acimut_enlace_util_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="acimut_enlace_util_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="acimut_enlace_util_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      5 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2"> 
+      Apartamiento con respecto a la m&aacute;xima radiaci&oacute;n
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <FONT FACE="Symbol">
+      b
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      &ordm;
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="beta_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="beta_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="beta_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="beta_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      6 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Longitud del enlace interferente
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      L
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Km
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=60 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=60 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="distancia">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=60 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=2 WIDTH=60 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=60 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="distancia">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=2 WIDTH=60 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      7 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Frecuencia
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      F
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      MHz
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="frecuencia_transmision_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="frecuencia_recepcion_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="frecuencia_diferencia_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="frecuencia_transmision_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="frecuencia_recepcion_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="frecuencia_diferencia_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      8 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Atenuaci&oacute;n espacio libre
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Ael
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=LEFT VALIGN=TOP BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_espacio_libre_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 WIDTH=240 HEIGHT=28 ALIGN=LEFT VALIGN=TOP BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_espacio_libre_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      9 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Atenuaci&oacute;n Alimentadores
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Aa
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="atenuacion_alimentadores_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="atenuacion_alimentadores_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_alimentadores_total">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="atenuacion_alimentadores_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="atenuacion_alimentadores_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_alimentadores_total">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      10 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      P&eacute;rdida en Filtros y Conectores
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Ac
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2"> 
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="perdida_filtros_conectores_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="perdida_filtros_conectores_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="perdida_filtros_conectores_total">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="perdida_filtros_conectores_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="perdida_filtros_conectores_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="perdida_filtros_conectores_total">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      11 
+     </FONT>
+    </TD>
+    <TD WIDTH=159 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Ganancia de Antena
+     </FONT>
+    </TD>
+    <TD WIDTH=173 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2"> 
+      Polarizaci&oacute;n (H o V)
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      G
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dBi
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 WIDTH=80 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=RIGHT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="polarizacion_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=80 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=RIGHT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="polarizacion_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_total">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=80 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=RIGHT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="polarizacion_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=80 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD WIDTH=40 HEIGHT=28 ALIGN=RIGHT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       <TMPL_VAR NAME="polarizacion_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_total">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      12 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Ganancia de Antena con polarizaci&oacute;n cruzada
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      G
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dBi
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_total">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="ganancia_antena_polarizacion_cruzada_total">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      13 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Discriminaci&oacute;n por polarizaci&oacute;n cruzada
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      D
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_total">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=TOP>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="discriminacion_polarizacion_cruzada_total">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      14 
+     </FONT>
+    </TD>
+    <TD COLSPAN="2" WIDTH=159 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Atenuaci&oacute;n por obstrucci&oacute;n no excedido el 20% del tiempo
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Ao20
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=8 ROWSPAN=3 WIDTH=240 HEIGHT=84 ALIGN=LEFT VALIGN=BOTTOM BGCOLOR="#C0C0C0">
+     <B>
+      <FONT FACE="Times New Roman" COLOR="#0000FF">
+       ES
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_obstruccion_no_excedido_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 ROWSPAN=3 WIDTH=240 HEIGHT=84 ALIGN=LEFT VALIGN=BOTTOM BGCOLOR="#C0C0C0">
+     <B>
+      <FONT FACE="Times New Roman" COLOR="#0000FF">
+       ES
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_obstruccion_no_excedido_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE SDVAL="15">
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      15 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Factor de reducci&oacute;n de la interferencia
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <FONT FACE="Symbol">
+      a
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="factor_reduccion_interferencia_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="factor_reduccion_interferencia_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      16 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Atenuaci&oacute;n neta no excedida el 20 % del tiempo
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      An20
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_neta_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="atenuacion_neta_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      17 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Potencia del transmisor
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Pti-u
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dBm
+     </FONT>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="potencia_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="potencia_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="potencia_interferido">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=4 WIDTH=120 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       *
+       <BR>
+       &nbsp;
+       <TMPL_VAR NAME="potencia_interferente">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      18 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Se&ntilde;al interferente excedida el 20% del tiempo
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      PI
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dBm
+     </FONT>
+    </TD>
+    <TD COLSPAN=8 ROWSPAN=2 WIDTH=240 HEIGHT=56 ALIGN=LEFT VALIGN=BOTTOM BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="senial_interferente_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=8 ROWSPAN=2 WIDTH=240 HEIGHT=56 ALIGN=LEFT VALIGN=BOTTOM BGCOLOR="#C0C0C0">
+     <BR>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="senial_interferente_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+   <TR>
+    <TD WIDTH=30 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      19 
+     </FONT>
+    </TD>
+    <TD COLSPAN=2 WIDTH=332 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      Margen de interferencia
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      M
+     </FONT>
+    </TD>
+    <TD WIDTH=43 HEIGHT=28 ALIGN=CENTER VALIGN=MIDDLE>
+     <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+      dB
+     </FONT>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="margen_de_interferencia_Izq">
+      </FONT>
+     </B>
+    </TD>
+    <TD COLSPAN=3 WIDTH=114 HEIGHT=28 ALIGN=LEFT VALIGN=MIDDLE>
+     <B>
+      <font face="Arial, Helvetica, Geneva, Swiss, SunSans-Regular" size="2">
+       <TMPL_VAR NAME="margen_de_interferencia_Der">
+      </FONT>
+     </B>
+    </TD>
+   </TR>
+
+  </TABLE>
+
+  <HR>
+  </TMPL_LOOP>

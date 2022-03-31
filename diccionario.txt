@@ -1,0 +1,54 @@
+Columnas de la tabla de enlaces de la CNC:
+
+01: CB: Codigo de la Banda (depende de la banda de frecuencias de operacion del
+				enlace).
+
+02: NA: Numero de Asignacion (dato interno de la CNC).
+
+03: FT: Frecuencia de Transmision (en MHz.).
+
+04: FR: Frecuencia de Recepcion (en MHz.).
+
+05: SDT: Se#al Distintiva (dato interno de la CNC).
+
+06: LOC: Localidad (donde se encuentra la estacion transmisora correspondiente,
+				o el nombre de la localidad mas cercana).
+
+07: PRO: Provincia (segun tabla provista por CNC).
+
+08: SDR: Enlaza con Estacion (dato interno de la CNC).
+
+09: LON: Longitud (Oeste) (en grados, minutos y segundos).
+
+10: LAT: Longitud (Sur) (en grados, minutos y segundos).
+
+11: BN: Anchura de Banda Necesaria y Clase de Emision (se obtiene del Art. 4
+				del reglamento de Radiocomunicaciones, transcripto en el BSC
+				9768).
+
+12: CS: Codigo del Sistema (1: Analogico, 2: Digital).
+
+16: PTX: Potencia del Equipo Transmisor (en dBm).
+
+17: PIX: Se#al Interferente Maxima (20% del tiempo) (ver pag. 26 de DG_DNRc61).
+
+18: TA: Tipo de Antena (ver pag. 31 de DG_DNRc61).
+
+19: MMA: Marca y Modelo de Antena.
+
+21: POL: Polarizacion de Antena (H, V, HV).
+
+22: ACU: Acimut de maxima radiacion (ver pag. 29 de DG_DNRc61).
+
+23: E: Angulo de elevacion de Antena (segun DNRc.25-02).
+
+24: CT: Cota sobre el Nivel del Mar (en metros).
+
+25: HA: Altura de la Antena sobre el suelo (en metros).
+
+26: AAL: Atenuacion total del sistema de alimentacion (producidos por los
+				elementos que estan entre el transmisor y la antena).
+
+
+
+

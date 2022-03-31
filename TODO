@@ -1,0 +1,8 @@
+- Asumiendo que la frecuencia interferente es la del transmisor del enlace que estamos agregando, para que existen dos bloques identicos para colocar los datos en la planilla? (sera por el hecho de que generalmente los enlaces son ida y vuelta, por lo tanto tenemos dos transmisores para un solo enlace?).
+
+- El dato "Tipo de Modulacion" no aparece en el diccionario de datos, de la base de datos de enlaces provista por la CNC.
+
+- El dato "Acimut de enlace util" es un parametro de entrada, y para el caso del ejemplo que estoy utilizando, carezco de un valor del mismo. Esto mismo sucede con el dato "Atenuacion de los Alimentadores".
+
+- El dato "Perdida de Filtros y Conectores" no aparece en el diccionario de datos, de la base de datos de enlaces provista por la CNC.
+

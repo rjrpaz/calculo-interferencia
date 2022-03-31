@@ -1,0 +1,738 @@
+#!/usr/bin/perl -w
+
+use enlaces;
+use CGI qw(:standard escapeHTML);
+use HTML::Template;
+use POSIX;
+
+$url = "$server/enlaces/interferencia.html";
+$http_referer = $ENV{'HTTP_REFERER'};
+
+$filelist = $tmpldir."/enlaces.lst";
+$filelist_antena = $tmpldir."/tipos_de_antena.lst";
+# Este valor de 1 grado es lo que consideramos como
+# limite a la hora de analizar la zona de influencia
+# Teniendo en cuenta que los valores de latitud y
+# longitud se ingresa en la forma GGMMSS, entonces
+# un grado es 010000
+$zona_analizada = 10000;
+
+@enlaces_interferidos = ();
+
+$pi = atan2(1,1) * 4;
+
+print header();
+
+my $template = HTML::Template->new(filename => 'header.tmpl', path => $tmpldir);
+$template->param(color_de_fondo => $color_de_fondo);
+$template->param(titulo => $titulo);
+
+print $template->output;
+
+if (defined($http_referer) && ($http_referer =~ m/$url/))
+{
+	my $nombre = param('nombre');
+	my $latitud_interferente = param('latitud');
+	my $longitud_interferente = param('longitud');
+	my $frecuencia_transmision_interferente = param('frecuencia_transmision');
+	my $frecuencia_recepcion_interferente = param('frecuencia_recepcion');
+	my $bandwith_interferente = param('bandwith');
+	my $bandwith_mhz_interferente = param('bandwith_mhz');
+	my $tipo_modulacion_interferente = param('tipo_modulacion');
+	my $acimut_enlace_util_interferente = param('acimut_enlace_util');
+	my $atenuacion_alimentadores_interferente = param('atenuacion_alimentadores');
+	my $perdida_filtros_conectores_interferente = param('perdida_filtros_conectores');
+	my $tipo_antena_interferente = param('tipo_antena');
+	my $polarizacion_interferente = param('polarizacion_antena');
+	my $altura_antena_interferente = param('altura_antena');
+	my $potencia_interferente = param('potencia');
+	if ($polarizacion_interferente eq "horizontal")
+	{
+		$polarizacion_interferente = "H";
+	}
+	elsif ($polarizacion_interferente eq "vertical")
+	{
+		$polarizacion_interferente = "V";
+	}
+
+	my $template = HTML::Template->new(filename => 'InterSF1000.tmpl', path => $tmpldir);
+	$template->param(nombre => $nombre);
+
+	my $contador = 0;
+
+	$latitud_interferente = sprintf("%06d", $latitud_interferente);
+	(my $latitud_interferente_grado) = ($latitud_interferente =~ /(.{2})/);
+	(my $latitud_interferente_minuto) = ($latitud_interferente =~ /.{2}(.{2})/);
+	(my $latitud_interferente_segundo) = ($latitud_interferente =~ /.{4}(.{2})/);
+
+	$longitud_interferente = sprintf("%06d", $longitud_interferente);
+	(my $longitud_interferente_grado) = ($longitud_interferente =~ /(.{2})/);
+	(my $longitud_interferente_minuto) = ($longitud_interferente =~ /.{2}(.{2})/);
+	(my $longitud_interferente_segundo) = ($longitud_interferente =~ /.{4}(.{2})/);
+
+	# Scannea el Archivo de enlaces de la CNC
+	open (LISTADO, "< ", $filelist);
+	while (<LISTADO>)
+	{
+		$contador++;
+		next if ($contador == 1);
+		chop;
+		@registro = split (/\|/, $_);
+
+		$banda = $registro[0];
+		$nro_asignacion_cnc = $registro[1];
+		$bandwith = $registro[10];
+		$frecuencia_transmision = $registro[2];
+		$frecuencia_recepcion = $registro[3];
+		$latitud = sprintf("%06d", $registro[9]);
+		$longitud = $registro[8];
+		$acimut = $registro[21];
+		$atenuacion_alimentadores = $registro[25];
+		$polarizacion_interferido = $registro[20];
+		$tipo_antena = $registro[17];
+		$altura_antena_interferido = $registro[24];
+		$potencia_interferido = $registro[15];
+
+		# Descarta enlaces que no esten en un cuadrado de un grado alrededor
+		# el punto geografico interferente
+		next if (abs($latitud_interferente - $latitud) > $zona_analizada);
+		next if (abs($longitud_interferente - $longitud) > $zona_analizada);
+
+		# Descarta enlaces que no coincidan en frecuencia
+		# REVISAR ESTO EN BASE A UE LA FRECUENCIA ESTA EN CANALES O MHZ
+#		next if ((($frecuencia_transmision_interferente - 0.5 * 0.064 * $bandwith_interferente) < ($frecuencia_recepcion - 0.5 * 0.064 * $bandwith)) && (($frecuencia_transmision_interferente + 0.5 * 0.064 * $bandwith_interferente) < ($frecuencia_recepcion - 0.5 * 0.064 * $bandwith)));
+#		next if ((($frecuencia_transmision_interferente - 0.5 * 0.064 * $bandwith_interferente) > ($frecuencia_recepcion + 0.5 * 0.064 * $bandwith)) && (($frecuencia_transmision_interferente + 0.5 * 0.064 * $bandwith_interferente) > ($frecuencia_recepcion + 0.5 * 0.064 * $bandwith)));
+		next if ((($frecuencia_transmision_interferente - 0.5 * $bandwith_mhz_interferente) < ($frecuencia_recepcion - 0.5 * $bandwith)) && (($frecuencia_transmision_interferente + 0.5 * $bandwith_mhz_interferente) < ($frecuencia_recepcion - 0.5 * $bandwith)));
+		next if ((($frecuencia_transmision_interferente - 0.5 * $bandwith_mhz_interferente) > ($frecuencia_recepcion + 0.5 * $bandwith)) && (($frecuencia_transmision_interferente + 0.5 * $bandwith_mhz_interferente) > ($frecuencia_recepcion + 0.5 * $bandwith)));
+
+		my %row;
+		my $denominador;
+		my $numerador;
+
+		$row{banda} = $banda;
+		$row{nro_asignacion_cnc} = $nro_asignacion_cnc;
+
+
+		# Determina la Capacidad de los enlaces (Item 1).
+		# NO DISPONGO DE LA INFORMACION RELATIVA AL TIPO DE MODULACION
+		# DEL ENLACE INTERFERIDO
+		$row{capacidad_interferente} = $bandwith_interferente;
+		$row{tipo_modulacion_interferente} = $tipo_modulacion_interferente;
+		$row{capacidad_interferido} = $bandwith;
+
+
+		# Determina la Latitud y Longitud de los enlaces (Item 2).
+		$row{latitud_interferente_grado} = $latitud_interferente_grado;
+		$row{latitud_interferente_minuto} = $latitud_interferente_minuto;
+		$row{latitud_interferente_segundo} = $latitud_interferente_segundo;
+		($row{latitud_interferido_grado}) = ($latitud =~ /(.{2})/);
+		($row{latitud_interferido_minuto}) = ($latitud =~ /.{2}(.{2})/);
+		($row{latitud_interferido_segundo}) = ($latitud =~ /.{4}(.{2})/);
+
+		$row{longitud_interferente_grado} = $longitud_interferente_grado;
+		$row{longitud_interferente_minuto} = $longitud_interferente_minuto;
+		$row{longitud_interferente_segundo} = $longitud_interferente_segundo;
+		($row{longitud_interferido_grado}) = ($longitud =~ /(.{2})/);
+		($row{longitud_interferido_minuto}) = ($longitud =~ /.{2}(.{2})/);
+		($row{longitud_interferido_segundo}) = ($longitud =~ /.{4}(.{2})/);
+
+
+		# Determina el Acimut de antena en el enlace interferente
+		# (Item 3).
+		if ($longitud_interferente > $longitud)
+		{
+			$latitud_a = ($latitud_interferente_grado + ($latitud_interferente_minuto / 60) + ($latitud_interferente_segundo / 3600)) * $pi / 180;
+			$longitud_a = ($longitud_interferente_grado + ($longitud_interferente_minuto / 60) + ($longitud_interferente_segundo / 3600)) * $pi / 180;
+			$latitud_b = ($row{latitud_interferido_grado} + ($row{latitud_interferido_minuto} / 60) + ($row{latitud_interferido_segundo} / 3600)) * $pi / 180;
+			$longitud_b = ($row{longitud_interferido_grado} + ($row{longitud_interferido_minuto} / 60) + ($row{longitud_interferido_segundo} / 3600)) * $pi / 180;
+		}
+		else
+		{
+			$latitud_a = ($row{latitud_interferido_grado} + ($row{latitud_interferido_minuto} / 60) + ($row{latitud_interferido_segundo} / 3600)) * $pi / 180;
+			$longitud_a = ($row{longitud_interferido_grado} + ($row{longitud_interferido_minuto} / 60) + ($row{longitud_interferido_segundo} / 3600)) * $pi / 180;
+			$latitud_b = ($latitud_interferente_grado + ($latitud_interferente_minuto / 60) + ($latitud_interferente_segundo / 3600)) * $pi / 180;
+			$longitud_b = ($longitud_interferente_grado + ($longitud_interferente_minuto / 60) + ($longitud_interferente_segundo / 3600)) * $pi / 180;
+		}
+		my $t = cos($latitud_b) * sin($longitud_b - $longitud_a);
+		my $u = cos($latitud_b) * cos($longitud_b - $longitud_a) * sin($latitud_a) - cos($latitud_a) * sin($latitud_b);
+		$denominador = sqrt($t * $t + $u * $u);
+		$numerador = $u;
+		my $acimut_a = acos($numerador / $denominador);
+		$acimut_a = $acimut_a * 180 / $pi;
+		$acimut_a = sprintf("%.1f", $acimut_a);
+
+		my $v = cos($latitud_a) * sin($longitud_a - $longitud_b);
+		my $w = cos($latitud_a) * cos($longitud_a - $longitud_b) * sin($latitud_b) - cos($latitud_b) * sin($latitud_a);
+		$denominador = sqrt($v * $v + $w * $w);
+		$numerador = cos($latitud_b) * sin($latitud_a) - cos($latitud_a) * cos($longitud_a - $longitud_b) * sin($latitud_b);
+		my $acimut_b = acos($numerador / $denominador);
+		$acimut_b = 180 + $acimut_b * 180 / $pi;
+		$acimut_b = sprintf("%.1f", $acimut_b);
+
+		if ($longitud_interferente > $longitud)
+		{
+			$row{acimut_interferente} = $acimut_a;
+			$row{acimut_interferido} = $acimut_b;
+		}
+		else
+		{
+			$row{acimut_interferente} = $acimut_b;
+			$row{acimut_interferido} = $acimut_a;
+		}
+
+
+		# Determina el Acimut de antena en el enlace util (Item 4).
+		# EN EL CASO DEL ENLACE INTERFERENTE, ES UN DATO DE
+		# ENTRADA DEL CUAL NO POSEO VALORES DE EJEMPLO
+		$row{acimut_enlace_util_interferente} = $acimut_enlace_util_interferente;
+		$row{acimut_enlace_util_interferido} = $acimut;
+
+
+		# Determina el apartamiento con respecto a la maxima
+		# radiacion (Item 5).
+		# REQUIERE DEL VALOR DEL PUNTO ANTERIOR. PARA EL CASO
+		# DEL ENLACE INTERFERENTE ESTA PENDIENTE.
+		$row{beta_interferente} = abs($row{acimut_interferente} - $acimut_enlace_util_interferente);
+		if (abs($row{beta_interferente}) > 180)
+		{
+			$row{beta_interferente} = 360 - abs($row{beta_interferente});
+		}
+		$row{beta_interferente} = sprintf("%.1f", $row{beta_interferente});
+		$row{beta_interferido} = $row{acimut_interferido} - $acimut;
+		if (abs($row{beta_interferido}) > 180)
+		{
+			$row{beta_interferido} = 360 - abs($row{beta_interferido});
+		}
+		$row{beta_interferido} = sprintf("%.1f", $row{beta_interferido});
+
+
+		# Determina la longitud del enlace interferente (Item 6).
+#		$row{distancia} = 111194 * acos(cos($latitud_a) * cos($latitud_b) * cos($longitud_a - $longitud_b) + sin($latitud_a) * sin($latitud_b));
+		$row{distancia} = 6378  * acos(cos($latitud_a) * cos($latitud_b) * cos($longitud_a - $longitud_b) + sin($latitud_a) * sin($latitud_b));
+		$row{distancia} = sprintf("%.3f", $row{distancia});
+
+
+		# Determina la frecuencia (Item 7).
+		$row{frecuencia_transmision_interferente} = sprintf("%.3f", $frecuencia_transmision_interferente);
+		$row{frecuencia_recepcion_interferido} = sprintf("%.3f", $frecuencia_recepcion);
+		$row{frecuencia_diferencia_Izq} = abs($row{frecuencia_transmision_interferente} - $row{frecuencia_recepcion_interferido});
+		$row{frecuencia_transmision_interferido} = sprintf("%.3f", $frecuencia_transmision);
+		$row{frecuencia_recepcion_interferente} = sprintf("%.3f", $frecuencia_recepcion_interferente);
+		$row{frecuencia_diferencia_Der} = abs($row{frecuencia_transmision_interferido} - $row{frecuencia_recepcion_interferente});
+
+
+
+		# Determina la atenuacion en el espacio libre (Item 8).
+		$row{atenuacion_espacio_libre_Izq} = 32.44 + 20 * log10($row{frecuencia_transmision_interferente}) + 20 * log10($row{distancia});
+		$row{atenuacion_espacio_libre_Izq} = sprintf("%.1f", $row{atenuacion_espacio_libre_Izq});
+		$row{atenuacion_espacio_libre_Der} = 32.44 + 20 * log10($row{frecuencia_transmision_interferido}) + 20 * log10($row{distancia});
+		$row{atenuacion_espacio_libre_Der} = sprintf("%.1f", $row{atenuacion_espacio_libre_Der});
+
+
+		# Determina la atenuacion de los alimentadores (Item 9).
+		# EN EL CASO DEL ENLACE INTERFERENTE, ES UN DATO DE
+		# ENTRADA DEL CUAL NO POSEO VALORES DE EJEMPLO
+		$row{atenuacion_alimentadores_interferente} = sprintf("%.1f", $atenuacion_alimentadores_interferente);
+		$row{atenuacion_alimentadores_interferido} = sprintf("%.1f", $atenuacion_alimentadores);
+		$row{atenuacion_alimentadores_total} = $row{atenuacion_alimentadores_interferente} + $row{atenuacion_alimentadores_interferido};
+		$row{atenuacion_alimentadores_total} = sprintf("%.1f", $row{atenuacion_alimentadores_total});
+
+
+		# Determina perdida en filtros y conectores (Item 10).
+		# NO ENCUENTRO EN LA TABLA QUE PROVEE LA CNC, ESTA INFORMACION
+		# RELATIVA AL ENLACE INTERFERIDO
+		$row{perdida_filtros_conectores_interferente} = sprintf("%.1f", $perdida_filtros_conectores_interferente);
+		$row{perdida_filtros_conectores_interferido} = sprintf("%.1f", 0);
+		$row{perdida_filtros_conectores_total} = $row{perdida_filtros_conectores_interferente} + $row{perdida_filtros_conectores_interferido};
+		$row{perdida_filtros_conectores_total} = sprintf("%.1f", $row{perdida_filtros_conectores_total});
+
+
+		# Determina la ganancia y polarizacion de la antena (Item 11).
+		# Enlace Interferente:
+		($tipo_antena_interferente) = ($tipo_antena_interferente =~ /([^\s]*)/);
+		open (LISTADO_ANTENAS, "< ", $filelist_antena);
+		while (<LISTADO_ANTENAS>)
+		{
+			chop;
+			@registro_antena = split (/\|/, $_);
+			last if ($registro_antena[2] eq $tipo_antena_interferente);
+		}
+		close (LISTADO_ANTENAS);
+
+		$ganancia_maxima_interferente = $registro_antena[5];
+		$beta_uno_interferente = $registro_antena[6];
+		$beta_un_tercio_interferente = $registro_antena[7];
+		$beta_cero_interferente = $registro_antena[8];
+		$discriminacion_polarizacion_cruzada_maxima_interferente = $registro_antena[9];
+		$relacion_frente_espalda_interferente = $registro_antena[10];
+
+		if ($row{beta_interferente} <= $beta_uno_interferente)
+		{
+			$row{ganancia_antena_interferente} = $ganancia_maxima_interferente;
+		}
+		elsif (($row{beta_interferente} > $beta_uno_interferente) && ($row{beta_interferente} <= $beta_un_tercio_interferente))
+		{
+			my $pendiente = (4 * $ganancia_maxima_interferente) / (3 * ($beta_un_tercio_interferente + $beta_uno_interferente));
+			my $ordenada_al_origen = $ganancia_maxima_interferente * ($beta_uno_interferente - 3 * $beta_un_tercio_interferente) / (3 * ($beta_un_tercio_interferente + $beta_uno_interferente));
+			$row{ganancia_antena_interferente} = $pendiente * $row{beta_interferente} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferente} > $beta_un_tercio_interferente) && ($row{beta_interferente} <= $beta_cero_interferente))
+		{
+			my $pendiente = $ganancia_maxima_interferente / (3 * ($beta_un_tercio_interferente - $beta_cero_interferente));
+			my $ordenada_al_origen = (-1) * $ganancia_maxima_interferente * $beta_cero_interferente / (3 * ($beta_un_tercio_interferente - $beta_uno_interferente));
+			$row{ganancia_antena_interferente} = $pendiente * $row{beta_interferente} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferente} > $beta_cero_interferente) && ($row{beta_interferente} <= 180))
+		{
+			my $pendiente = ($ganancia_maxima_interferente - $relacion_frente_espalda_interferente) / (180 - $beta_cero_interferente);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferente * $pendiente;
+			$row{ganancia_antena_interferente} = $pendiente * $row{beta_interferente} + $ordenada_al_origen;
+		}
+
+		$row{ganancia_antena_interferente} = sprintf("%.1f", $row{ganancia_antena_interferente});
+		
+		# Enlace Interferido
+		# VALOR DE PRUEBA, SI TIPO DE ANTENA ES 0
+		if ($tipo_antena eq "0")
+		{
+			$tipo_antena = "806";
+		}
+		open (LISTADO_ANTENAS, "< ", $filelist_antena);
+		while (<LISTADO_ANTENAS>)
+		{
+			chop;
+			@registro_antena = split (/\|/, $_);
+			last if ($registro_antena[2] eq $tipo_antena);
+		}
+		close (LISTADO_ANTENAS);
+
+		$ganancia_maxima_interferido = $registro_antena[5];
+		$beta_uno_interferido = $registro_antena[6];
+		$beta_un_tercio_interferido = $registro_antena[7];
+		$beta_cero_interferido = $registro_antena[8];
+		$discriminacion_polarizacion_cruzada_maxima_interferido = $registro_antena[9];
+		$relacion_frente_espalda_interferido = $registro_antena[10];
+
+		if ($row{beta_interferido} <= $beta_uno_interferido)
+		{
+			$row{ganancia_antena_interferido} = $ganancia_maxima_interferido;
+		}
+		elsif (($row{beta_interferido} > $beta_uno_interferido) && ($row{beta_interferido} <= $beta_un_tercio_interferido))
+		{
+			my $pendiente = (4 * $ganancia_maxima_interferido) / (3 * ($beta_un_tercio_interferido + $beta_uno_interferido));
+			my $ordenada_al_origen = $ganancia_maxima_interferido * ($beta_uno_interferido - 3 * $beta_un_tercio_interferido) / (3 * ($beta_un_tercio_interferido + $beta_uno_interferido));
+			$row{ganancia_antena_interferido} = $pendiente * $row{beta_interferido} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferido} > $beta_un_tercio_interferido) && ($row{beta_interferido} <= $beta_cero_interferido))
+		{
+			my $pendiente = $ganancia_maxima_interferido / (3 * ($beta_un_tercio_interferido - $beta_cero_interferido));
+			my $ordenada_al_origen = (-1) * $ganancia_maxima_interferido * $beta_cero_interferido / (3 * ($beta_un_tercio_interferido - $beta_uno_interferido));
+			$row{ganancia_antena_interferido} = $pendiente * $row{beta_interferido} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferido} > $beta_cero_interferido) && ($row{beta_interferido} <= 180))
+		{
+			my $pendiente = ($ganancia_maxima_interferido - $relacion_frente_espalda_interferido) / (180 - $beta_cero_interferido);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferido * $pendiente;
+			$row{ganancia_antena_interferido} = $pendiente * $row{beta_interferido} + $ordenada_al_origen;
+		}
+
+		$row{ganancia_antena_interferido} = sprintf("%.1f", $row{ganancia_antena_interferido});
+
+		$row{ganancia_antena_total} = sprintf("%.1f", $row{ganancia_antena_interferente} + $row{ganancia_antena_interferido});
+		$row{polarizacion_interferente} = $polarizacion_interferente;
+		$row{polarizacion_interferido} = $polarizacion_interferido;
+
+
+		# Determina la ganancia de antena con polarizacion cruzada (Item 12).
+		if ($row{beta_interferente} <= $beta_uno_interferente)
+		{
+			$row{ganancia_antena_polarizacion_cruzada_interferente} = $ganancia_maxima_interferente - $discriminacion_polarizacion_cruzada_maxima_interferente;
+		}
+		elsif (($row{beta_interferente} > $beta_uno_interferente) && ($row{beta_interferente} <= $beta_cero_interferente))
+		{
+			my $pendiente = ($ganancia_maxima_interferente - $discriminacion_polarizacion_cruzada_maxima_interferente) / ($beta_uno_interferente - $beta_cero_interferente);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferente * $pendiente;
+			$row{ganancia_antena_polarizacion_cruzada_interferente} = $pendiente * $row{beta_interferente} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferente} > $beta_cero_interferente) && ($row{beta_interferente} <= 180))
+		{
+			my $pendiente = ($ganancia_maxima_interferente - $relacion_frente_espalda_interferente) / (180 - $beta_cero_interferente);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferente * $pendiente;
+			$row{ganancia_antena_polarizacion_cruzada_interferente} = $pendiente * $row{beta_interferente} + $ordenada_al_origen;
+		}
+
+		if ($row{beta_interferido} <= $beta_uno_interferido)
+		{
+			$row{ganancia_antena_polarizacion_cruzada_interferido} = $ganancia_maxima_interferido - $discriminacion_polarizacion_cruzada_maxima_interferido;
+		}
+		elsif (($row{beta_interferido} > $beta_uno_interferido) && ($row{beta_interferido} <= $beta_cero_interferido))
+		{
+			my $pendiente = ($ganancia_maxima_interferido - $discriminacion_polarizacion_cruzada_maxima_interferido) / ($beta_uno_interferido - $beta_cero_interferido);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferido * $pendiente;
+			$row{ganancia_antena_polarizacion_cruzada_interferido} = $pendiente * $row{beta_interferido} + $ordenada_al_origen;
+		}
+		elsif (($row{beta_interferido} > $beta_cero_interferido) && ($row{beta_interferido} <= 180))
+		{
+			my $pendiente = ($ganancia_maxima_interferido - $relacion_frente_espalda_interferido) / (180 - $beta_cero_interferido);
+			my $ordenada_al_origen = (-1) * $beta_cero_interferido * $pendiente;
+			$row{ganancia_antena_polarizacion_cruzada_interferido} = $pendiente * $row{beta_interferido} + $ordenada_al_origen;
+		}
+
+		$row{ganancia_antena_polarizacion_cruzada_interferente} = sprintf("%.1f", $row{ganancia_antena_polarizacion_cruzada_interferente});
+		$row{ganancia_antena_polarizacion_cruzada_interferido} = sprintf("%.1f", $row{ganancia_antena_polarizacion_cruzada_interferido});
+		$row{ganancia_antena_polarizacion_cruzada_total} = sprintf("%.1f", $row{ganancia_antena_polarizacion_cruzada_interferente} + $row{ganancia_antena_polarizacion_cruzada_interferido});
+
+
+		# Determina la discrimacion por polarizacion cruzada (Item 13).
+		$row{discriminacion_polarizacion_cruzada_interferente} = $row{ganancia_antena_interferente} - $row{ganancia_antena_polarizacion_cruzada_interferente};
+		$row{discriminacion_polarizacion_cruzada_interferente} = sprintf("%.1f", $row{discriminacion_polarizacion_cruzada_interferente});
+		$row{discriminacion_polarizacion_cruzada_interferido} = $row{ganancia_antena_interferido} - $row{ganancia_antena_polarizacion_cruzada_interferido};
+		$row{discriminacion_polarizacion_cruzada_interferido} = sprintf("%.1f", $row{discriminacion_polarizacion_cruzada_interferido});
+		if (($row{polarizacion_interferido} eq "HV") || $row{polarizacion_interferido} eq $row{polarizacion_interferente})
+		{
+			$row{discriminacion_polarizacion_cruzada_total} = 10 * log10 (1 / (1 + 10**((-1) * ($row{discriminacion_polarizacion_cruzada_interferente} + $row{discriminacion_polarizacion_cruzada_interferido}) / 10)));
+		}
+		else
+		{
+			$row{discriminacion_polarizacion_cruzada_total} = 10 * log10 (1 / ((10**((-1) * $row{discriminacion_polarizacion_cruzada_interferente} / 10)) + (10**((-1) * $row{discriminacion_polarizacion_cruzada_interferido} / 10))));
+		}
+		$row{discriminacion_polarizacion_cruzada_total} = sprintf("%.1f", $row{discriminacion_polarizacion_cruzada_total});
+
+
+		# Determina la atenuacion por obstruccion no excedido el
+		# 20 % del tiempo (Item 14).
+#		$k = 1 / (0.72 - (0.27 / (sqrt(1 + ($row{distancia} / 13)))));
+#		$f2 = $row{frecuencia_transmision_interferente} / ($k * $k);
+#		$f1 = $row{frecuencia_transmision_interferente} / sqrt($k);
+#		$x2 = 6 * log10($f2 / 17);
+#		$x1 = 6 * log10($f1 / 26);
+#		$y2 = 7.2 * log10(1350 / $row{distancia});
+#		$yl1 = 6 * log10($altura_antena_interferente / 3);
+#		$yl2 = 6 * log10($altura_antena_interferido / 3);
+#		$z2 = 1.713 * $y2 - 0.713 * $x2;
+#		$zl1 = 0.4 * $x1 + 0.6 * $yl1;
+#		$zl2 = 0.4 * $x1 + 0.6 * $yl2;
+#
+##		print STDERR "K: $k F2: $f2 F1: $f1 X2: $x2 X1: $x1 Y2: $y2 YL1: $yl1 YL2: $yl2 Z2: $z2 ZL1: $zl1 ZL2: $zl2\n";
+#		if (($zl1 >= 0) && ($zl1 <= 6.55))
+#		{
+#			$Hht1 = 0.0478 * $zl1 * $zl1 + 5.34 * $zl1 - 37;
+#		}
+#		elsif (($zl1 > 6.55) && ($zl1 <= 10.9))
+#		{
+#			$Hht1 = 1.492 * $zl1 * $zl1 - 14.54 * $zl1 + 31.22;
+#		}
+#		elsif (($zl1 > 10.9) && ($zl1 <= 14.3))
+#		{
+#			$Hht1 = 6.536 * $zl1 * $zl1 - 126.47 * $zl1 + 652;
+#		}
+#
+#		if (($zl2 >= 0) && ($zl2 <= 6.55))
+#		{
+#			$Hht2 = 0.0478 * $zl2 * $zl2 + 5.34 * $zl2 - 37;
+#		}
+#		elsif (($zl2 > 6.55) && ($zl2 <= 10.9))
+#		{
+#			$Hht2 = 1.492 * $zl2 * $zl2 - 14.54 * $zl2 + 31.22;
+#		}
+#		elsif (($zl2 > 10.9) && ($zl2 <= 14.3))
+#		{
+#			$Hht2 = 6.536 * $zl2 * $zl2 - 126.47 * $zl2 + 652;
+#		}
+#
+#		$FL = -0.003853 * ($z2**4) + 0.2228 * ($z2**3) - 5.35 * $z2 * $z2 + 66.247 * $z2 - 360;
+
+#		$row{atenuacion_obstruccion_no_excedido} = sprintf("%.1f", abs($FL + $Hht1 + $Hht2));
+		$row{atenuacion_obstruccion_no_excedido_Izq} = &obtener_A0($row{distancia}, $row{frecuencia_transmision_interferente}, $altura_antena_interferente, $altura_antena_interferido);
+		$row{atenuacion_obstruccion_no_excedido_Der} = &obtener_A0($row{distancia}, $row{frecuencia_transmision_interferido}, $altura_antena_interferido, $altura_antena_interferente);
+
+
+		# Determina factor de reduccion de la interferencia (Item 15).
+		# LO QUE SIGUE SE TOMA ASI PORQUE NO TENEMOS ESOS VALORES
+		$bni = $bandwith_mhz_interferente;
+		$bnu = $bandwith_mhz_interferente;
+#		print STDERR "BNI: $bni BNU: $bnu \n";
+
+		if ($bni > $bnu)
+		{
+			$bn = $bni;
+		}
+		else
+		{
+			$bn = $bnu;
+		}
+		$df = abs($row{frecuencia_transmision_interferente} - $row{frecuencia_recepcion_interferido}) / $bn;
+
+		# Calculo para sistemas analogicos
+#		if (($df >= 0) && ($df <= 0.5))
+#		{
+#			$alfa = 0;
+#		}
+#		elsif (($df >= 0.5) && ($df <= 1))
+#		{
+#			$alfa = 120 * $df - 60;
+#		}
+#		elsif (($df >= 1) && ($df <= 3))
+#		{
+#			$alfa = 60;
+#		}
+
+		# Calculo para sistemas digitales
+		if (($df >= 0) && ($df <= 0.5))
+		{
+			$alfa = 0;
+		}
+		elsif (($df >= 0.5) && ($df <= 1))
+		{
+			$alfa = 50 * $df - 25;
+		}
+		elsif (($df >= 1) && ($df <= 3))
+		{
+			$alfa = 17.5 * $df + 7.5;
+		}
+
+		if ($bni > $bnu)
+		{
+			$alfa = $alfa + 10 * log10 ($bni / $bnu);
+		}
+		$row{factor_reduccion_interferencia_Izq} = sprintf("%.1f", $alfa);
+
+		$df = abs($row{frecuencia_transmision_interferido} - $row{frecuencia_recepcion_interferente}) / $bn;
+
+		# Calculo para sistemas digitales
+		if (($df >= 0) && ($df <= 0.5))
+		{
+			$alfa = 0;
+		}
+		elsif (($df >= 0.5) && ($df <= 1))
+		{
+			$alfa = 50 * $df - 25;
+		}
+		elsif (($df >= 1) && ($df <= 3))
+		{
+			$alfa = 17.5 * $df + 7.5;
+		}
+
+		if ($bni > $bnu)
+		{
+			$alfa = $alfa + 10 * log10 ($bni / $bnu);
+		}
+		$row{factor_reduccion_interferencia_Der} = sprintf("%.1f", $alfa);
+
+
+		# Determina atenuacion neta no excedida el 20% del tiempo (Item 16).
+		$row{atenuacion_neta_Izq} = $row{atenuacion_espacio_libre_Izq} +  $row{atenuacion_alimentadores_total} + $row{perdida_filtros_conectores_total} - ($row{ganancia_antena_interferente} + $row{ganancia_antena_interferido}) + $row{discriminacion_polarizacion_cruzada_total} + $row{atenuacion_obstruccion_no_excedido_Izq} + $row{factor_reduccion_interferencia_Izq};
+		$row{atenuacion_neta_Izq} = sprintf("%.1f", $row{atenuacion_neta_Izq});
+		$row{atenuacion_neta_Der} = $row{atenuacion_espacio_libre_Der} +  $row{atenuacion_alimentadores_total} + $row{perdida_filtros_conectores_total} - ($row{ganancia_antena_interferente} + $row{ganancia_antena_interferido}) + $row{discriminacion_polarizacion_cruzada_total} + $row{atenuacion_obstruccion_no_excedido_Der} + $row{factor_reduccion_interferencia_Der};
+		$row{atenuacion_neta_Der} = sprintf("%.1f", $row{atenuacion_neta_Der});
+
+
+		# Determina la Potencia del transmisor (Item 17).
+		$row{potencia_interferente} = sprintf("%.1f", $potencia_interferente);
+		$row{potencia_interferido} = sprintf("%.1f", $potencia_interferido);
+
+
+		# Determina se#al interferente excedida el 20% del tiempo (Item 18).
+		$row{senial_interferente_Izq} = sprintf("%.1f", $row{potencia_interferente} - $row{atenuacion_neta_Izq});
+		$row{senial_interferente_Der} = sprintf("%.1f", $row{potencia_interferido} - $row{atenuacion_neta_Der});
+
+
+		# Determina margen de interferencia (Item 19).
+#		if ($bandwith_interferente <= 60)
+#		{
+#			$pimax = -127;
+#		}
+#		elsif (($bandwith_interferente > 60) && ($bandwith_interferente <= 120))
+#		{
+#			$pimax = -122;
+#		}
+#		elsif (($bandwith_interferente > 120) && ($bandwith_interferente <= 300))
+#		{
+#			$pimax = -114;
+#		}
+#		elsif (($bandwith_interferente > 300) && ($bandwith_interferente <= 600))
+#		{
+#			$pimax = -108;
+#		}
+#		elsif (($bandwith_interferente > 600) && ($bandwith_interferente <= 960))
+#		{
+#			$pimax = -104;
+#		}
+#		elsif (($bandwith_interferente > 960) && ($bandwith_interferente <= 1260))
+#		{
+#			$pimax = -101;
+#		}
+#		elsif (($bandwith_interferente > 1260) && ($bandwith_interferente <= 1800))
+#		{
+#			$pimax = -95;
+#		}
+#		elsif (($bandwith_interferente > 1800) && ($bandwith_interferente <= 2700))
+#		{
+#			$pimax = -91;
+#		}
+#		$row{margen_de_interferencia_Izq} = sprintf("%.1f", $pimax - $row{senial_interferente_Izq});
+		$row{margen_de_interferencia_Izq} = &obtener_margen_de_interferencia($bandwith_interferente, $row{senial_interferente_Izq});
+		$row{margen_de_interferencia_Der} = &obtener_margen_de_interferencia(30, $row{senial_interferente_Der});
+
+		push (@enlaces_interferidos, \%row);
+	
+		my %row_cab;	
+		$row_cab{banda} = $banda;
+		$row_cab{nro_asignacion_cnc} = $nro_asignacion_cnc;
+		$row_cab{senial_interferente} = $row{senial_interferente_Izq};
+		$row_cab{margen_de_interferencia} = $row{margen_de_interferencia_Izq};
+		push (@datos_para_el_resumen, \%row_cab);
+
+		my %row_cab2;	
+		$row_cab2{banda} = $banda;
+		$row_cab2{nro_asignacion_cnc} = $nro_asignacion_cnc;
+		$row_cab2{senial_interferente} = $row{senial_interferente_Der};
+		$row_cab2{margen_de_interferencia} = $row{margen_de_interferencia_Der};
+		push (@datos_para_el_resumen2, \%row_cab2);
+
+#		last;
+	}
+
+	if ($#enlaces_interferidos == -1)
+	{
+		print "No se encontraron enlaces definidos en 1 grado alrededor\n";
+		print "<BR>\n";
+		print "en la frecuencia del enlace interferente.\n";
+		exit;
+	}
+
+
+	$template->param(registro => \@enlaces_interferidos);
+	$template->param(solo_ciertos_datos_interferente => \@datos_para_el_resumen);
+	$template->param(solo_ciertos_datos_interferido => \@datos_para_el_resumen2);
+	print $template->output;
+}
+else
+{
+	$template = HTML::Template->new(filename => 'interferencia.tmpl', path => $tmpldir);
+
+	# Scannea el Archivo de tipos de antena
+	open (LISTADO_ANTENAS, "< ", $filelist_antena);
+	while (<LISTADO_ANTENAS>)
+	{
+		$contador++;
+		next if $contador == 1;
+		chop;
+		my %row;
+		
+		@registro_antena = split (/\|/, $_);
+		$row{banda} = $registro_antena[1];
+		$row{tipo_antena} = $registro_antena[2];
+		$row{descripcion} = $registro_antena[3];
+		push (@registro, \%row)
+	}
+	close (LISTADO_ANTENAS);
+	$template->param(tipo_antena => \@registro);
+
+	print $template->output;
+}
+
+
+$template = HTML::Template->new(filename => 'footer.tmpl', path => $tmpldir);
+
+print $template->output;
+
+exit;
+
+
+
+sub obtener_A0
+{
+	local($distancia, $frecuencia_transmision, $altura_antena_interferente, $altura_antena_interferido) = @_;
+
+	# Determina la atenuacion por obstruccion no excedido el
+	# 20 % del tiempo (Item 14).
+	$k = 1 / (0.72 - (0.27 / (sqrt(1 + ($distancia / 13)))));
+	$f2 = $frecuencia_transmision / ($k * $k);
+	$f1 = $frecuencia_transmision / sqrt($k);
+	$x2 = 6 * log10($f2 / 17);
+	$x1 = 6 * log10($f1 / 26);
+	$y2 = 7.2 * log10(1350 / $distancia);
+	$yl1 = 6 * log10($altura_antena_interferente / 3);
+	$yl2 = 6 * log10($altura_antena_interferido / 3);
+	$z2 = 1.713 * $y2 - 0.713 * $x2;
+	$zl1 = 0.4 * $x1 + 0.6 * $yl1;
+	$zl2 = 0.4 * $x1 + 0.6 * $yl2;
+
+#	print STDERR "K: $k F2: $f2 F1: $f1 X2: $x2 X1: $x1 Y2: $y2 YL1: $yl1 YL2: $yl2 Z2: $z2 ZL1: $zl1 ZL2: $zl2\n";
+	if (($zl1 >= 0) && ($zl1 <= 6.55))
+	{
+		$Hht1 = 0.0478 * $zl1 * $zl1 + 5.34 * $zl1 - 37;
+	}
+	elsif (($zl1 > 6.55) && ($zl1 <= 10.9))
+	{
+		$Hht1 = 1.492 * $zl1 * $zl1 - 14.54 * $zl1 + 31.22;
+	}
+	elsif (($zl1 > 10.9) && ($zl1 <= 14.3))
+	{
+		$Hht1 = 6.536 * $zl1 * $zl1 - 126.47 * $zl1 + 652;
+	}
+
+	if (($zl2 >= 0) && ($zl2 <= 6.55))
+	{
+		$Hht2 = 0.0478 * $zl2 * $zl2 + 5.34 * $zl2 - 37;
+	}
+	elsif (($zl2 > 6.55) && ($zl2 <= 10.9))
+	{
+		$Hht2 = 1.492 * $zl2 * $zl2 - 14.54 * $zl2 + 31.22;
+	}
+	elsif (($zl2 > 10.9) && ($zl2 <= 14.3))
+	{
+		$Hht2 = 6.536 * $zl2 * $zl2 - 126.47 * $zl2 + 652;
+	}
+
+	$FL = -0.003853 * ($z2**4) + 0.2228 * ($z2**3) - 5.35 * $z2 * $z2 + 66.247 * $z2 - 360;
+#	print STDERR "Hht1: $Hht1 Hht2: $Hht2 FL: $FL\n";
+
+	$atenuacion_obstruccion_no_excedido = sprintf("%.1f", abs($FL + $Hht1 + $Hht2));
+#	print STDERR "K: $k \nF2: $f2 \nF1: $f1 \nX2: $x2 \nX1: $x1 \nY2: $y2 \nYl1: $yl1 \nYl2: $yl2 \nZ2: $z2 \nzl1: $zl1 \nzl2: $zl2 \nHht1: $Hht1 \nHht2: $Hht2 \nFL: $FL \n";
+	return ($atenuacion_obstruccion_no_excedido);
+}
+
+
+sub obtener_margen_de_interferencia
+{
+	local($bandwith_interferente, $senial_interferente) = @_;
+
+	# Determina margen de interferencia (Item 19).
+	if ($bandwith_interferente <= 60)
+	{
+		$pimax = -127;
+	}
+	elsif (($bandwith_interferente > 60) && ($bandwith_interferente <= 120))
+	{
+		$pimax = -122;
+	}
+	elsif (($bandwith_interferente > 120) && ($bandwith_interferente <= 300))
+	{
+		$pimax = -114;
+	}
+	elsif (($bandwith_interferente > 300) && ($bandwith_interferente <= 600))
+	{
+		$pimax = -108;
+	}
+	elsif (($bandwith_interferente > 600) && ($bandwith_interferente <= 960))
+	{
+		$pimax = -104;
+	}
+	elsif (($bandwith_interferente > 960) && ($bandwith_interferente <= 1260))
+	{
+		$pimax = -101;
+	}
+	elsif (($bandwith_interferente > 1260) && ($bandwith_interferente <= 1800))
+	{
+		$pimax = -95;
+	}
+	elsif (($bandwith_interferente > 1800) && ($bandwith_interferente <= 2700))
+	{
+		$pimax = -91;
+	}
+	$margen_de_interferencia = sprintf("%.1f", $pimax - $senial_interferente);
+	return ($margen_de_interferencia);
+}
+
